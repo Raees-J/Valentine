@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import ImageCarousel from './ImageCarousel'
 import TypewriterText from './TypewriterText'
@@ -6,6 +6,18 @@ import CyclingText from './CyclingText'
 
 const GreetingCard = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   const handleCardClick = (e) => {
     // Don't toggle if clicking on carousel
@@ -22,12 +34,17 @@ const GreetingCard = () => {
         transformStyle: 'preserve-3d'
       }}
       initial={{ 
-        width: 'min(90vw, 350px)', 
-        height: 'min(85vh, 500px)' 
+        width: isMobile ? 'min(85vw, 340px)' : 'min(90vw, 350px)', 
+        height: isMobile ? 'min(75vh, 480px)' : 'min(85vh, 500px)' 
       }}
       animate={{
-        width: isOpen ? 'min(95vw, 1000px)' : 'min(90vw, 350px)',
-        height: isOpen ? 'min(90vh, 700px)' : 'min(85vh, 500px)',
+        width: isOpen 
+          ? (isMobile ? 'min(90vh, 650px)' : 'min(95vw, 1000px)')
+          : (isMobile ? 'min(85vw, 340px)' : 'min(90vw, 350px)'),
+        height: isOpen 
+          ? (isMobile ? 'min(85vw, 460px)' : 'min(90vh, 700px)')
+          : (isMobile ? 'min(75vh, 480px)' : 'min(85vh, 500px)'),
+        rotate: isOpen && isMobile ? 90 : 0,
       }}
       transition={{
         duration: 1.2,
