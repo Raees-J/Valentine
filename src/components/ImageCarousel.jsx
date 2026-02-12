@@ -10,10 +10,10 @@ const ImageCarousel = ({ isOpen }) => {
   ]
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6 relative bg-white">
+    <div className="w-full h-full flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6 relative bg-white">
       {/* Collage Grid */}
       <motion.div
-        className="w-full h-full grid grid-cols-2 gap-2 sm:gap-3 md:gap-4"
+        className="w-full flex-1 grid grid-cols-2 gap-2 sm:gap-3 md:gap-4"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{
           opacity: isOpen ? 1 : 0,
@@ -55,8 +55,8 @@ const ImageCarousel = ({ isOpen }) => {
         ))}
       </motion.div>
 
-      {/* Timer overlay in bottom right white space */}
-      <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 md:bottom-4 md:right-4 lg:bottom-6 lg:right-6">
+      {/* Timer below the images */}
+      <div className="w-full flex justify-center mt-2 sm:mt-3 md:mt-4">
         <TimeSinceCounter isOpen={isOpen} />
       </div>
     </div>
