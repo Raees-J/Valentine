@@ -10,10 +10,10 @@ const ImageCarousel = ({ isOpen }) => {
   ]
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6 relative bg-white">
+    <div className="w-full h-full flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6 relative bg-white">
       {/* Collage Grid */}
       <motion.div
-        className="w-full flex-1 grid grid-cols-2 gap-2 sm:gap-3 md:gap-4"
+        className="w-full h-[85%] grid grid-cols-2 grid-rows-2 gap-2 sm:gap-3 md:gap-4"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{
           opacity: isOpen ? 1 : 0,
@@ -21,12 +21,38 @@ const ImageCarousel = ({ isOpen }) => {
         }}
         transition={{ delay: 0.5, duration: 0.6, staggerChildren: 0.1 }}
       >
-        {images.map((image, index) => (
+        {/* First image - spans 2 columns */}
+        <motion.div
+          className="col-span-2 relative rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden cursor-pointer"
+          initial={{ opacity: 0, y: 20, scale: 0.9 }}
+          animate={{
+            opacity: isOpen ? 1 : 0,
+            y: isOpen ? 0 : 20,
+            scale: isOpen ? 1 : 0.9,
+          }}
+          transition={{
+            delay: 0.6,
+            duration: 0.5,
+            type: 'spring',
+            stiffness: 200,
+            damping: 20,
+          }}
+          whileHover={{ scale: 1.05, zIndex: 10 }}
+          whileTap={{ scale: 0.98 }}
+        >
+          <img
+            src={images[0].src}
+            alt={images[0].alt}
+            className="w-full h-full object-cover"
+            style={{ objectPosition: 'center 35%' }}
+          />
+        </motion.div>
+
+        {/* Remaining 3 images */}
+        {images.slice(1).map((image, index) => (
           <motion.div
             key={image.id}
-            className={`relative rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden cursor-pointer ${
-              index === 0 ? 'col-span-2 row-span-1' : ''
-            }`}
+            className="relative rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden cursor-pointer"
             initial={{ opacity: 0, y: 20, scale: 0.9 }}
             animate={{
               opacity: isOpen ? 1 : 0,
@@ -34,7 +60,7 @@ const ImageCarousel = ({ isOpen }) => {
               scale: isOpen ? 1 : 0.9,
             }}
             transition={{
-              delay: 0.6 + index * 0.1,
+              delay: 0.7 + index * 0.1,
               duration: 0.5,
               type: 'spring',
               stiffness: 200,
@@ -46,17 +72,14 @@ const ImageCarousel = ({ isOpen }) => {
             <img
               src={image.src}
               alt={image.alt}
-              className={`w-full h-full ${
-                index === 0 ? 'object-cover' : 'object-cover'
-              }`}
-              style={index === 0 ? { objectPosition: 'center 35%' } : {}}
+              className="w-full h-full object-cover"
             />
           </motion.div>
         ))}
       </motion.div>
 
-      {/* Timer below the images */}
-      <div className="w-full flex justify-center mt-2 sm:mt-3 md:mt-4">
+      {/* Timer at the bottom */}
+      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 sm:bottom-3 md:bottom-4">
         <TimeSinceCounter isOpen={isOpen} />
       </div>
     </div>
