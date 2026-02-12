@@ -10,35 +10,18 @@ const ImageCarousel = ({ isOpen }) => {
   ]
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6 relative bg-white">
-      {/* Collage Grid */}
-      <motion.div
-        className="w-full h-[85%] grid grid-cols-2 grid-rows-2 gap-2 sm:gap-3 md:gap-4"
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{
-          opacity: isOpen ? 1 : 0,
-          scale: isOpen ? 1 : 0.9,
-        }}
-        transition={{ delay: 0.5, duration: 0.6, staggerChildren: 0.1 }}
-      >
-        {/* First image - spans 2 columns */}
+    <div className="w-full h-full flex flex-col bg-white p-3 sm:p-4 md:p-6">
+      {/* Image Grid - Takes most of the space */}
+      <div className="flex-1 grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-3 sm:mb-4">
+        {/* Top row - Large image spanning 2 columns */}
         <motion.div
-          className="col-span-2 relative rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden cursor-pointer"
-          initial={{ opacity: 0, y: 20, scale: 0.9 }}
+          className="col-span-2 relative rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
           animate={{
             opacity: isOpen ? 1 : 0,
             y: isOpen ? 0 : 20,
-            scale: isOpen ? 1 : 0.9,
           }}
-          transition={{
-            delay: 0.6,
-            duration: 0.5,
-            type: 'spring',
-            stiffness: 200,
-            damping: 20,
-          }}
-          whileHover={{ scale: 1.05, zIndex: 10 }}
-          whileTap={{ scale: 0.98 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
         >
           <img
             src={images[0].src}
@@ -48,26 +31,17 @@ const ImageCarousel = ({ isOpen }) => {
           />
         </motion.div>
 
-        {/* Remaining 3 images */}
+        {/* Bottom row - 3 smaller images */}
         {images.slice(1).map((image, index) => (
           <motion.div
             key={image.id}
-            className="relative rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden cursor-pointer"
-            initial={{ opacity: 0, y: 20, scale: 0.9 }}
+            className="relative rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden"
+            initial={{ opacity: 0, y: 20 }}
             animate={{
               opacity: isOpen ? 1 : 0,
               y: isOpen ? 0 : 20,
-              scale: isOpen ? 1 : 0.9,
             }}
-            transition={{
-              delay: 0.7 + index * 0.1,
-              duration: 0.5,
-              type: 'spring',
-              stiffness: 200,
-              damping: 20,
-            }}
-            whileHover={{ scale: 1.05, zIndex: 10 }}
-            whileTap={{ scale: 0.98 }}
+            transition={{ delay: 0.7 + index * 0.1, duration: 0.5 }}
           >
             <img
               src={image.src}
@@ -76,10 +50,10 @@ const ImageCarousel = ({ isOpen }) => {
             />
           </motion.div>
         ))}
-      </motion.div>
+      </div>
 
-      {/* Timer at the bottom */}
-      <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 sm:bottom-3 md:bottom-4">
+      {/* Timer at bottom - Fixed height */}
+      <div className="flex justify-center items-center">
         <TimeSinceCounter isOpen={isOpen} />
       </div>
     </div>
