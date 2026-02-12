@@ -10,12 +10,11 @@ const ImageCarousel = ({ isOpen }) => {
   ]
 
   return (
-    <div className="w-full h-full flex flex-col bg-white p-3 sm:p-4 md:p-6">
-      {/* Image Grid - Takes most of the space */}
-      <div className="flex-1 grid grid-cols-2 gap-2 sm:gap-3 md:gap-4 mb-3 sm:mb-4">
-        {/* Top row - Large image spanning 2 columns */}
+    <div className="w-full h-full bg-white p-3 sm:p-4 md:p-6">
+      <div className="w-full h-full grid grid-cols-2 grid-rows-3 gap-2 sm:gap-3 md:gap-4">
+        {/* First image - spans 2 columns, 1 row */}
         <motion.div
-          className="col-span-2 relative rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden"
+          className="col-span-2 row-span-1 relative rounded-xl overflow-hidden shadow-lg"
           initial={{ opacity: 0, y: 20 }}
           animate={{
             opacity: isOpen ? 1 : 0,
@@ -27,34 +26,68 @@ const ImageCarousel = ({ isOpen }) => {
             src={images[0].src}
             alt={images[0].alt}
             className="w-full h-full object-cover"
-            style={{ objectPosition: 'center 35%' }}
+            style={{ objectPosition: 'center 40%' }}
           />
         </motion.div>
 
-        {/* Bottom row - 3 smaller images */}
-        {images.slice(1).map((image, index) => (
-          <motion.div
-            key={image.id}
-            className="relative rounded-lg sm:rounded-xl md:rounded-2xl shadow-xl overflow-hidden"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{
-              opacity: isOpen ? 1 : 0,
-              y: isOpen ? 0 : 20,
-            }}
-            transition={{ delay: 0.7 + index * 0.1, duration: 0.5 }}
-          >
-            <img
-              src={image.src}
-              alt={image.alt}
-              className="w-full h-full object-cover"
-            />
-          </motion.div>
-        ))}
-      </div>
+        {/* Second image - left middle */}
+        <motion.div
+          className="col-span-1 row-span-1 relative rounded-xl overflow-hidden shadow-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: isOpen ? 1 : 0,
+            y: isOpen ? 0 : 20,
+          }}
+          transition={{ delay: 0.7, duration: 0.5 }}
+        >
+          <img
+            src={images[1].src}
+            alt={images[1].alt}
+            className="w-full h-full object-cover"
+            style={{ objectPosition: 'center center' }}
+          />
+        </motion.div>
 
-      {/* Timer at bottom - Fixed height */}
-      <div className="flex justify-center items-center">
-        <TimeSinceCounter isOpen={isOpen} />
+        {/* Third image - right middle */}
+        <motion.div
+          className="col-span-1 row-span-1 relative rounded-xl overflow-hidden shadow-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: isOpen ? 1 : 0,
+            y: isOpen ? 0 : 20,
+          }}
+          transition={{ delay: 0.8, duration: 0.5 }}
+        >
+          <img
+            src={images[2].src}
+            alt={images[2].alt}
+            className="w-full h-full object-cover"
+            style={{ objectPosition: 'center center' }}
+          />
+        </motion.div>
+
+        {/* Fourth image - bottom left */}
+        <motion.div
+          className="col-span-1 row-span-1 relative rounded-xl overflow-hidden shadow-lg"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{
+            opacity: isOpen ? 1 : 0,
+            y: isOpen ? 0 : 20,
+          }}
+          transition={{ delay: 0.9, duration: 0.5 }}
+        >
+          <img
+            src={images[3].src}
+            alt={images[3].alt}
+            className="w-full h-full object-cover"
+            style={{ objectPosition: 'center center' }}
+          />
+        </motion.div>
+
+        {/* Timer - bottom right */}
+        <div className="col-span-1 row-span-1 flex items-center justify-center">
+          <TimeSinceCounter isOpen={isOpen} />
+        </div>
       </div>
     </div>
   )
