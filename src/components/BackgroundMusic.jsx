@@ -49,7 +49,7 @@ const BackgroundMusic = () => {
         autoPlay
         preload="auto"
       >
-        <source src="/PRETTYMUCH - Eyes Off You (Audio).mp3" type="audio/mpeg" />
+        <source src="/background-music.mp3" type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
 

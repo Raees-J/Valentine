@@ -10,7 +10,7 @@ const ImageCarousel = ({ isOpen }) => {
   ]
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6 relative">
+    <div className="w-full h-full flex items-center justify-center p-2 sm:p-3 md:p-4 lg:p-6 relative bg-white">
       {/* Collage Grid */}
       <motion.div
         className="w-full h-full grid grid-cols-2 gap-2 sm:gap-3 md:gap-4"

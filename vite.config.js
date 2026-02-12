@@ -6,4 +6,6 @@ export default defineConfig({
   optimizeDeps: {
     include: ['framer-motion'],
   },
+  publicDir: 'public',
+  assetsInclude: ['**/*.mp3', '**/*.jpg', '**/*.png'],
 })
